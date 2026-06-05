@@ -1,1 +1,0 @@
-# seismology_ch3
