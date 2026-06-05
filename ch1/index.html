@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="地震學基礎知識與研究探討：從地震波、地震危害到核爆監測">
+    <title>地震學基礎知識與研究概覽 | Seismology Fundamentals</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="hero">
+        <div class="glass-container">
+            <h1>地震學與社會安全</h1>
+            <p>探索地球內部的脈動，認識地震運作原理、災害防制與現代地震學應用。</p>
+            <a href="#content" class="scroll-down">開始探索 ↓</a>
+        </div>
+    </header>
+
+    <nav id="navbar">
+        <ul>
+            <li><a href="#topic1">研究範疇</a></li>
+            <li><a href="#topic2">基礎示意圖</a></li>
+            <li><a href="#topic3">Hazard vs Risk</a></li>
+            <li><a href="#topic4">能量衰減</a></li>
+            <li><a href="#topic6">建築耐震</a></li>
+            <li><a href="#topic7">土壤液化</a></li>
+            <li><a href="#topic8">預報與預測</a></li>
+            <li><a href="#topic11">核爆監測</a></li>
+        </ul>
+    </nav>
+
+    <main id="content" class="container">
+        
+        <!-- Topic 1 -->
+        <section id="topic1" class="card">
+            <h2>1. 地震學研究範疇</h2>
+            <p>地震學 (Seismology) 是地球物理學的一個重要分支，主要研究地震的發生機制、地震波的傳播規律以及地球的內部結構。其主要研究範疇包含：</p>
+            <ul class="styled-list">
+                <li><strong>觀測地震學：</strong>利用地震儀記錄地面震動，測定地震的發生時間、位置 (震央)、深度和規模。</li>
+                <li><strong>物理地震學：</strong>研究斷層破裂機制、地殼應力累積與釋放的物理過程。</li>
+                <li><strong>內部構造：</strong>透過地震波穿透地球內部的速度變化，解析地殼、地函與地核的構造與材質。</li>
+                <li><strong>探勘地震學：</strong>利用人工震源探測地下結構，廣泛運用於石油、天然氣與礦產探勘。</li>
+                <li><strong>工程地震學：</strong>評估地震危害度，為建築法規、耐震設計及防災減災提供科學依據。</li>
+            </ul>
+        </section>
+
+        <!-- Topic 2 -->
+        <section id="topic2" class="card">
+            <h2>2. 地震學基礎圖示 (圖1.1-1 ~ 圖1.1-5)</h2>
+            <p>這些早期的圖表展示了地震學與地球科學發展中的關鍵基礎概念，包括板塊構造、斷層運動的基本原理或是測震儀器的發展。</p>
+            <div class="gallery">
+                <figure class="gallery-item">
+                    <img src="CH1/圖1.1-1.png" alt="圖1.1-1" loading="lazy">
+                    <figcaption>圖1.1-1：展現地震分布與板塊邊界的關聯或是地震基礎原理。</figcaption>
+                </figure>
+                <figure class="gallery-item">
+                    <img src="CH1/圖1.1-2.png" alt="圖1.1-2" loading="lazy">
+                    <figcaption>圖1.1-2：可能為彈性回跳理論的圖解，說明地殼受力變形到斷層破裂的過程。</figcaption>
+                </figure>
+                <figure class="gallery-item">
+                    <img src="CH1/圖1.1-3.png" alt="圖1.1-3" loading="lazy">
+                    <figcaption>圖1.1-3：傳統地震儀的運作原理或近代地震觀測網的演進。</figcaption>
+                </figure>
+                <figure class="gallery-item">
+                    <img src="CH1/圖1.1-4.png" alt="圖1.1-4" loading="lazy">
+                    <figcaption>圖1.1-4：典型地震圖記錄，清楚標示出P波 (初波) 與S波 (次波) 的到達時間。</figcaption>
+                </figure>
+                <figure class="gallery-item">
+                    <img src="CH1/圖1.1-5.png" alt="圖1.1-5" loading="lazy">
+                    <figcaption>圖1.1-5：利用地震波在地球內部傳播的路徑，解析出地核與地函的界線。</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- Topic 3 -->
+        <section id="topic3" class="card">
+            <h2>3. Seismic Hazard 與 Seismic Risk 的區別</h2>
+            <div class="comparison-grid">
+                <div class="comparison-box">
+                    <h3>Seismic Hazard (地震危害)</h3>
+                    <p>指「自然現象本身」帶來的潛在威脅。例如預期在某特定時間內，某個地點可能會發生多大強度的地震動 (Ground Shaking)、斷層錯動、海嘯或引發的山崩。危害是自然界客觀存在的，<strong>人類無法消除</strong>。</p>
+                </div>
+                <div class="comparison-box">
+                    <h3>Seismic Risk (地震風險)</h3>
+                    <p>指「人類社會可能遭受的損失」。公式為 <strong>風險 = 危害 × 暴露度 × 脆弱度</strong> (Risk = Hazard × Exposure × Vulnerability)。如果一個地區沒有人類居住 (暴露度為零)，或建築極其堅固 (脆弱度極低)，那麼即使地震危害再高，其風險也是低的。<strong>人類可以藉由防災手段降低風險</strong>。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Topic 4 -->
+        <section id="topic4" class="card">
+            <h2>4. 公式的說明：地震波能量衰減的原因</h2>
+            <div class="formula-box">
+                <p class="formula">A(r) = A<sub>0</sub> · (1/r) · e<sup>-αr</sup></p>
+                <p>簡單代表公式 (1) 所描述的波幅隨距離衰減的數學模型。</p>
+            </div>
+            <p>地震波在地球內部傳遞時，其能量與振幅會隨著距離不斷變小，主要原因有兩個：</p>
+            <ul class="styled-list">
+                <li><strong>幾何擴散 (Geometrical Spreading)：</strong><br>地震波從震源向外以球平面的形式輻射擴展。隨著距離 <i>r</i> 增加，波前的表面積越來越大 (球面正比於 <i>r²</i> )，所以單位面積上的能量會下降，導致振幅成反比 (1/r) 減少。這是最主要的衰減因素。</li>
+                <li><strong>內在衰減 (Intrinsic Attenuation) 與散射 (Scattering)：</strong><br>又稱為非彈性衰減。地球不是完美的彈性體，地震波在岩石中傳播時，會遇到摩擦力，將一部分機械能轉化為熱能消散。此外，岩層中存在裂隙和不均勻構造，會使波發生反射、折射、散射而使主要能量偏離原傳播路徑。在公式中以指數項 e<sup>-αr</sup> 表示，α 為衰減係數。</li>
+            </ul>
+        </section>
+
+        <!-- Topic 5 -->
+        <section id="topic5" class="card">
+            <h2>5. 社會影響圖示 (圖1.2-3、圖1.2-5、圖1.2-6)</h2>
+            <div class="gallery gallery-3col">
+                <figure class="gallery-item">
+                    <img src="CH1/圖1.2-3.png" alt="圖1.2-3" loading="lazy">
+                    <figcaption>圖1.2-3：地震對地表的直接破壞影響，例如斷層破裂帶。</figcaption>
+                </figure>
+                <figure class="gallery-item">
+                    <img src="CH1/圖1.2-5.png" alt="圖1.2-5" loading="lazy">
+                    <figcaption>圖1.2-5：可能展示二次災害發生情況或人類建設在地震中的脆弱性。</figcaption>
+                </figure>
+                <figure class="gallery-item">
+                    <img src="CH1/圖1.2-6.png" alt="圖1.2-6" loading="lazy">
+                    <figcaption>圖1.2-6：經濟損失數據或各國面對歷史大型地震的歷史影像紀錄。</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- Topic 6 -->
+        <section id="topic6" class="card">
+            <h2>6. 不同建材的抗震能力與建築高度的影響</h2>
+            <div class="flex-content">
+                <div class="text-block">
+                    <h3>不同建材對地震的抵抗能力</h3>
+                    <p><strong>鋼筋混凝土 (RC)：</strong>台灣最常見，具備剛性與一定的韌性。適當設計下，能抵抗中等地震，但在極端地震中若剪力牆不足易發生脆性破壞。<br>
+                    <strong>鋼骨 (SS)：</strong>韌性極佳，能發生較大變形而不會立即崩塌，抗拉與抗壓能力強，多用於高層建築，但造價較高且側向位移較大。<br>
+                    <strong>磚造/無筋砌體：</strong>抗壓但不抗拉，受地震側向剪力時極易破裂倒塌，耐震能力最差。<br>
+                    <strong>木造：</strong>質量輕盈且具備良好柔韌性，在地震下透過接頭吸收能量不易傾倒，是非常優良的耐震建材。</p>
+                </div>
+                <div class="text-block">
+                    <h3>地震波對不同高度建築物的影響</h3>
+                    <p>每棟建築物都有其<strong>自然結構週期 (Natural Period)</strong>，大致上樓層越高，其自然週期越長。
+                    <br><br>
+                    <strong>共振效應 (Resonance)：</strong>當地震波的主要頻率與建築物的自然週期相近時，會發生共振，導致建築物劇烈搖晃並受到最大破壞。
+                    較硬的地盤容易放大高頻 (短週期) 地震波，此時矮房子容易受損；而軟弱地盤 (如台北盆地泥層) 容易放大低頻 (長週期) 地震波，這時高樓大廈反而搖晃得最為劇烈。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Topic 7 -->
+        <section id="topic7" class="card">
+            <h2>7. 土壤液化 (Soil Liquefaction) 的原因</h2>
+            <p>土壤液化是地震引發的一種嚴重次生災害，主要發生在充滿地下水、且土壤組成以鬆散飽和砂土為主的區域。其發生機制如下：</p>
+            <ol class="styled-list">
+                <li><strong>強烈震動：</strong>地震帶來的快速反覆剪力作用使得鬆散的砂土顆粒傾向排列得更緊密。</li>
+                <li><strong>水壓劇增：</strong>由於震動過快，孔隙中的地下水來不及排出，導致「孔隙水壓」瞬間急遽上升。</li>
+                <li><strong>喪失承載力：</strong>當水壓大於或等於土壤顆粒間的有效應力時，砂土顆粒會被水頂開，呈現如同液體泥漿般的狀態，完全喪失承載建築物的能力。</li>
+                <li><strong>結果現象：</strong>會造成地表噴砂、噴水，上方建築物發生不均勻沉陷、傾斜，甚至地下管線或箱涵浮出地面。</li>
+            </ol>
+        </section>
+
+        <!-- Topic 8, 9, 10 -->
+        <section id="topic8" class="card">
+            <h2>8. 地震預報 vs 地震預測</h2>
+            <figure class="gallery-item large-image">
+                <img src="CH1/圖1.2-14.png" alt="圖1.2-14" loading="lazy">
+                <figcaption>圖1.2-14：地震預報與不同階段警報系統的概念圖。</figcaption>
+            </figure>
+            <p><strong>地震預測 (Prediction)：</strong>指在地震發生前，明確指出地震發生的<strong>準確時間、具體地點 以及 確切規模</strong>。以目前的科學技術，短期精準的地震預測仍無法實現。<br>
+            <strong>地震預報 (Forecasting)：</strong>偏向於「長期機率」的概念。透過分析斷層過去的活動歷史、滑移速率，推估該斷層在未來幾十年內，發生一定規模以上地震的「機率」。</p>
+
+            <h2 class="sub-title">9. Seismic Gap (地震空窗期)</h2>
+            <div class="gallery gallery-2col">
+                <figure class="gallery-item">
+                    <img src="CH1/圖1.2-15.png" alt="圖1.2-15" loading="lazy">
+                    <figcaption>圖1.2-15：地震空窗期在地圖上的顯示。</figcaption>
+                </figure>
+                <figure class="gallery-item">
+                    <img src="CH1/圖1.2-16.png" alt="圖1.2-16" loading="lazy">
+                    <figcaption>圖1.2-16：斷層活動歷史反映出長時間未破裂區域的高風險。</figcaption>
+                </figure>
+            </div>
+            <p><strong>地震空窗期 (Seismic Gap)</strong> 是指位於已知活躍板塊邊界或活動斷層上的一段區域。在該段區域兩側的斷層近期都曾發生過大地震，釋放了應力，唯獨該段區域「在異常長的時間內」沒有發生過大地震。<br>由於板塊持續以穩定速度推進，未發生地震破裂的空窗期累積了大量的應變能 (Slip Deficit)。因此，地震空窗期被視為未來極可能發生大地震的高風險區域。</p>
+
+            <h2 class="sub-title">10. 地震預測的方法</h2>
+            <p>儘管尚未有完美的方法，科學家仍持續尋找地震發生前的<strong>前兆 (Precursors)</strong> 進行研究：</p>
+            <ul class="styled-list">
+                <li><strong>前震觀測：</strong>大地震前有時會出現小規模的群震。</li>
+                <li><strong>地下水變化：</strong>觀測井水位異常升降或水質變濁。</li>
+                <li><strong>地球化學異常：</strong>斷層微小破裂導致地底的氡氣 (Radon) 釋放量突然增加。</li>
+                <li><strong>地殼變形：</strong>利用GPS衛星測量地面在震前的微小隆起或位移。</li>
+                <li><strong>電磁異常：</strong>岩床在受極大壓力時，釋放電荷改變周圍地磁場。</li>
+                <li><strong>動物異常行為：</strong>民間常提到動物有避險行徑，但科學上較難量化標準化。</li>
+            </ul>
+        </section>
+
+        <!-- Topic 11 -->
+        <section id="topic11" class="card">
+            <h2>11. 如何用地震學方法監測核子試爆</h2>
+            <p>全面禁止核試驗條約 (CTBT) 的執行，很大程度上依賴全球地震觀測網。核子試爆和天然地震在地震波形上有顯著的差異：</p>
+            <div class="gallery gallery-2col">
+                <figure class="gallery-item">
+                    <img src="CH1/圖1.2-18.png" alt="圖1.2-18" loading="lazy">
+                    <figcaption>圖1.2-18：核爆與天然地震測波圖比對。</figcaption>
+                </figure>
+                <figure class="gallery-item">
+                    <img src="CH1/圖1.2-19.png" alt="圖1.2-19" loading="lazy">
+                    <figcaption>圖1.2-19：震源初動方向與波幅特徵的差別。</figcaption>
+                </figure>
+            </div>
+            <ul class="styled-list">
+                <li><strong>震源深度：</strong>核爆通常在極淺層或地表進行；而許多天然地震發生在地下數十至數百公里深。</li>
+                <li><strong>P波初動方向：</strong>核爆是爆炸源 (向外膨脹)，因此地震儀記錄到的P波初動方向全都是向上的「壓縮波」。天然斷層滑動 (錯動源) 會因為象限不同，產生有壓縮也有膨脹的初動。</li>
+                <li><strong>波形的頻率與比例：</strong>核爆過程幾乎瞬間釋放大量能量，因此會產生非常大的體波 (P波)，而較少產生表面波 (mb規模大於Ms規模)；天然地震的破裂持續時間長，產生非常發達且強烈的表面波，以及明顯的S波。</li>
+                <li><strong>缺乏餘震系列：</strong>核爆通常是單一事件，後續極少像天然主震伴隨著頻繁且規模遞減的餘震。</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Seismology Guide. Prepared for Educational Purposes.</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
