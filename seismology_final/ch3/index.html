@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地震學與地球結構 (Seismology Ch3)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            --accent: #38bdf8;
+            --accent-hover: #0ea5e9;
+        }
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            scroll-behavior: smooth;
+        }
+        /* Sidebar styling */
+        .sidebar {
+            width: 320px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(15px);
+            border-right: 1px solid var(--glass-border);
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+            box-sizing: border-box;
+            box-shadow: 5px 0 25px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+        .sidebar h2 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-align: center;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+        .nav-btn {
+            display: block;
+            width: 100%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            padding: 1.2rem;
+            margin-bottom: 0.8rem;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-btn:hover {
+            background: rgba(56, 189, 248, 0.1);
+            color: #fff;
+            transform: translateX(8px);
+            border-color: var(--accent);
+        }
+        .nav-btn.active {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.5);
+            border-color: transparent;
+            transform: scale(1.02);
+        }
+        /* Main content */
+        .main-content {
+            margin-left: 320px;
+            padding: 4rem 6rem;
+            max-width: 1200px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .section {
+            display: none;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .section.active {
+            display: block;
+        }
+        @keyframes slideUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            font-size: 3rem;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 1rem;
+            margin-bottom: 2.5rem;
+            font-weight: 800;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        h3 {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-top: 3rem;
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+        }
+        p, li {
+            line-height: 1.9;
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        /* Accordion (Interactive elements) */
+        details {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        details:hover {
+            border-color: rgba(56, 189, 248, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        summary {
+            padding: 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.3rem;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        summary::after {
+            content: '+';
+            font-size: 1.8rem;
+            color: var(--accent);
+            transition: transform 0.4s ease;
+        }
+        details[open] summary::after {
+            transform: rotate(45deg);
+        }
+        .details-content {
+            padding: 2rem;
+            border-top: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .details-content p:last-child {
+            margin-bottom: 0;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            border: 1px solid var(--glass-border);
+            transition: transform 0.3s;
+        }
+        img:hover {
+            transform: scale(1.02);
+        }
+        .img-caption {
+            font-size: 1rem;
+            color: #94a3b8;
+            background: rgba(255,255,255,0.05);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Seismology Ch3</h2>
+    <button class="nav-btn active" onclick="showSection('sec3-1', this)">3.1 Introduction</button>
+    <button class="nav-btn" onclick="showSection('sec3-2', this)">3.2 Refraction Seismology</button>
+    <button class="nav-btn" onclick="showSection('sec3-3', this)">3.3 Reflection Seismology</button>
+    <button class="nav-btn" onclick="showSection('sec3-4', this)">3.4 Spherical Earth Waves</button>
+    <button class="nav-btn" onclick="showSection('sec3-5', this)">3.5 Body Wave Travel Time</button>
+    <button class="nav-btn" onclick="showSection('sec3-6', this)">3.6 Anisotropic Structure</button>
+    <button class="nav-btn" onclick="showSection('sec3-7', this)">3.7 Attenuation & Anelasticity</button>
+    <button class="nav-btn" onclick="showSection('sec3-8', this)">3.8 Mantle & Core Composition</button>
+</div>
+
+<div class="main-content">
+
+    <div id="sec3-1" class="section active">
+        <h1>3.1 Introduction (地震學與地球內部結構簡介)</h1>
+        <p>地震學是一門研究彈性波在地球內部傳播的科學。透過分析地震波，科學家得以窺探地球深處的神秘結構。地球內部並非均勻的實體，而是由不同化學成分與物理狀態的層圈所組成，包括地殼 (Crust)、地函 (Mantle) 以及地核 (Core)。我們無法直接鑽探到地球深處，因此地震波成為了我們探索地球內部的「X 光」。</p>
+        <p>當地震發生或人為爆炸時，會產生巨大的能量並以彈性波的形式向四面八方傳播。這些波在傳遞過程中，會受到地球內部介質的密度、彈性模量（如體積模量與剪力模量）等物理性質影響，進而發生反射、折射、散射以及衰減等現象。透過在全球各地佈建密集的地震測站網路，科學家可以記錄這些地震波到達地表的精確時間、振幅與頻率特徵。</p>
+        <p>在地震學的發展歷史中，早期的科學家利用走時曲線 (Travel-time curves) 來推斷地球內部的分層結構。他們發現，地震波速隨著深度的增加，整體趨勢是逐漸變快的，這是因為地球內部的壓力隨著深度急遽增加，使得岩石變得更加緻密。然而，這種波速的增加並非總是平滑的，在某些特定的深度，波速會發生不連續的跳躍，這代表著地球內部存在著明顯的化學成分或相態邊界。</p>
+        <p>除了層狀結構，現代地震學更進一步利用地震層析成像技術 (Seismic Tomography) 來揭示地球內部的三維非均勻性。這使得我們能夠觀察到隱藏在地函深處的熱對流系統，例如隱沒的冷岩石圈板塊以及從核幔邊界上升的熱柱 (Mantle Plumes)。這些發現對於理解板塊構造學說的驅動力以及地球的熱化學演化具有決定性的意義。</p>
+        <p>本章節（第三章）將從最基本的震測折射與反射原理出發，逐步探討地震波在球狀地球中的傳播特性，並介紹如何利用體波走時、波速非均向性以及能量衰減等觀測資料，來建構出高解析度的地球內部結構模型。理解這些基礎概念，是深入研究全球地震學與地球內部動力學的必經之路。</p>
+    </div>
+
+    <div id="sec3-2" class="section">
+        <h1>3.2 Refraction seismology (震測折射法與地殼結構)</h1>
+        <p>震測折射法 (Refraction Seismology) 是利用地震波在不同波速介層交界面發生臨界折射的原理，來探測地下分層結構的技術。當地震波從低速層傳遞到高速層時，根據斯涅爾定律 (Snell's Law)，當入射角達到臨界角時，折射波會沿著交界面滑行，產生頭波 (Head wave)。</p>
+        
+        <details>
+            <summary>1. Pg、Pn、PmP 說明</summary>
+            <div class="details-content">
+                <p>在探討地殼與上部地函結構時，我們經常使用特定的波相命名：</p>
+                <ul>
+                    <li><strong>Pg 波</strong>：在地殼上層內部傳遞的直達 P 波。波速較慢（大約 5.8 ~ 6.2 km/s），在震央距離較近處是最先到達的地震波。</li>
+                    <li><strong>Pn 波</strong>：沿著莫氏不連續面 (Moho) 下方的地函頂部滑行並產生折射回到地表的 P 波。由於波速較快（大約 7.8 ~ 8.2 km/s），在遠處測站會超越 Pg 波成為 First arrival。</li>
+                    <li><strong>PmP 波</strong>：在莫氏不連續面 (Moho) 上發生廣角反射的 P 波，能量通常很強。</li>
+                </ul>
+            </div>
+        </details>
+        
+        <details>
+            <summary>2. 如何發現 Moho 面？</summary>
+            <div class="details-content">
+                <p>1909 年，莫霍洛維奇在分析地震觀測紀錄時，注意到近處測站先收到慢的直達波 (Pg)；而遠處測站先收到快的折射波 (Pn)。這表示地下必然存在一個地震波速明顯躍升的高速介面，使得 Pn 波因為進入高速層而能超越 Pg 波。此介面即被命名為莫氏不連續面 (Moho)。</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>3. 全球 Moho 面的深度分布？</summary>
+            <div class="details-content">
+                <ul>
+                    <li><strong>大洋地殼</strong>：海洋板塊較薄且均勻，Moho 面深度平均約為 5 到 10 公里。</li>
+                    <li><strong>大陸地殼</strong>：大陸板塊較厚，Moho 面深度平均約為 30 到 40 公里。而在活躍造山帶（如喜馬拉雅山脈），因地殼根效應，Moho 面可深達 70 公里以上。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <div id="sec3-3" class="section">
+        <h1>3.3 Reflection seismology (震測反射法)</h1>
+        <p>震測反射法 (Reflection Seismology) 是解析度最高的技術之一，廣泛應用於石油探勘與地殼研究。它利用地震波遇到地下不同聲阻抗 (Acoustic Impedance, 密度與波速的乘積) 介面時產生的反射訊號來進行成像。</p>
+        <p>資料處理流程包括動態修正 (NMO)、共深點重疊 (CDP Stacking) 與偏移成像 (Migration)。在全球地震學中，也利用反射原理來研究深部構造，例如核幔邊界反射波 (PcP) 來探測地函內部的精細分層。</p>
+    </div>
+
+    <div id="sec3-4" class="section">
+        <h1>3.4 Seismic waves in a spherical earth (球狀地球中的地震波)</h1>
+        <p>在球狀地球模型中，地震射線的路徑會因為波速隨深度的變化而發生彎曲，必須考慮地球曲率的影響。</p>
+        
+        <details>
+            <summary>4. 甚麼是 ray parameter (射線參數)？</summary>
+            <div class="details-content">
+                <p>射線參數 (Ray parameter, \(p\)) 代表地震波的水平慢度。在球狀地球模型中，\(p = \frac{r \sin i}{v}\)，其中 \(r\) 是半徑，\(i\) 是入射角，\(v\) 是波速。<strong>在球對稱模型中，同一條射線在傳遞過程中的 \(p\) 是一個守恆常數。</strong></p>
+            </div>
+        </details>
+
+        <details>
+            <summary>5. 為何遇到高速帶，接收站會接收到多次到時？</summary>
+            <div class="details-content">
+                <p>在某些深度（如 410 km 與 660 km 相變帶），波速隨深度急遽增加（高速帶）。射線穿過這些梯度極大的區域時會發生強烈向上折射，導致不同發射角度的射線在地表某個距離區間交疊。這稱為<strong>三叉現象 (Triplication)</strong>，使得同一個測站會觀測到來自同源的多個同相波多次到時。</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>6. 為何遇到低速帶，接收站會收不到波？</summary>
+            <div class="details-content">
+                <p>當地層存在波速下降的低速帶 (LVZ) 時，折射角會小於入射角，使得射線向下彎曲偏向地心。這導致在地表某距離範圍內出現沒有直達波射線能夠到達的區域，即<strong>陰影區 (Shadow Zone)</strong>。接收站將無法接收到直達波。</p>
+            </div>
+        </details>
+    </div>
+
+    <div id="sec3-5" class="section">
+        <h1>3.5 Body wave travel time studies (體波走時研究)</h1>
+        <p>體波走時研究是利用全球觀測網的抵達時間，反演出地球內部一維速度結構與三維異常的最主要方法。</p>
+
+        <details>
+            <summary>7. 如何發現核幔邊界 (Core-Mantle Boundary)？</summary>
+            <div class="details-content">
+                <p>1914 年古登堡發現，在距震央 103° 到 143° 的地帶測站完全接收不到直達 P 波，形成「P波陰影區」。這是因為 P 波深入地球遇到液態外核時，波速驟降（從 13.7 降至 8.0 km/s），發生強烈向下折射。這證實了地球內部存在性質截然不同的深部交界面，即核幔邊界 (CMB)。</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>8. 各種體波波相介紹</summary>
+            <div class="details-content">
+                <ul>
+                    <li><strong>P / S</strong>：僅在地函傳遞的直達波。</li>
+                    <li><strong>PP / SS</strong>：地表反射波。</li>
+                    <li><strong>c (如 PcP)</strong>：核幔邊界 (CMB) 反射波。</li>
+                    <li><strong>K (如 PKP)</strong>：穿透液態外核的 P 波。</li>
+                    <li><strong>I (如 PKIKP)</strong>：穿透固態內核的 P 波。</li>
+                    <li><strong>J</strong>：穿透內核的 S 波。</li>
+                    <li><strong>i (如 PKiKP)</strong>：內核表面反射波。</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>9. Core phases 介紹</summary>
+            <div class="details-content">
+                <p>Core phases 是指穿透深處與地核發生交互作用的波相。包括測量 CMB 的邊界反射波 (PcP)、受外核折射複雜的穿透外核波 (PKP, SKS)，以及證實內核固態的內核相關波 (PKIKP, PKiKP)。</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>10. 甚麼是 antipodal focusing (對蹠點聚焦)？</summary>
+            <div class="details-content">
+                <p>因為地球近似完美球體，向地球內部輻射的穿透地核地震波 (如 PKP)，會在地球內部折射後，最終於震央正對面（距 180° 的對蹠點）重新交會匯聚。這種幾何聚焦效應會像透鏡般，使得對蹠點附近的地震波振幅異常放大。</p>
+            </div>
+        </details>
+    </div>
+
+    <div id="sec3-6" class="section">
+        <h1>3.6 Anisotropic earth structure (地球的非均向性結構)</h1>
+        
+        <details>
+            <summary>11. 解釋 Upper mantle structure (低速帶與高速帶)</summary>
+            <div class="details-content">
+                <p><strong>低速帶 (LVZ)</strong>：約 100~250 公里深，波速微降。對應軟流圈頂部，含有少量部分熔融或揮發物，剪力強度降低。<br>
+                <strong>高速帶</strong>：約 410 公里與 660 公里深。因極大壓力使礦物晶格崩潰發生相變，密度與彈性模量躍升，波速急遽增加。</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>12. 說明 Anisotropic earth structure</summary>
+            <div class="details-content">
+                <p>介質波速因「前進方向」或「極化方向」不同而改變的現象。主要來源是地函因熱對流或板塊剪切，使得橄欖石等晶格產生規律排列 (LPO)，造成巨觀的非均向性。</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>13. 說明剪力波分離？</summary>
+            <div class="details-content">
+                <p>S 波穿透非均向性介質時，會分裂成兩個偏振方向互相垂直且速度不同的獨立波：快 S 波與慢 S 波。這類似光學的雙折射。兩者的時間差與極化方向可推測地下的應力與動力學特徵。</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>14. 為何使用 SKS 波相研究剪力波分離？</summary>
+            <div class="details-content">
+                <p>SKS 波在穿過液態外核時是無偏振方向的 P 波。當它離開外核轉回 S 波時，初始偏振方向被嚴格限制在徑向平面。這保證它進入接收測站下方前不受震源端構造干擾，所觀測到的分離完全來自於測站下方的地函非均向性。</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>15. 解釋圖 3.6-1 與 3.6-7</summary>
+            <div class="details-content">
+                <img src="圖3.6-1.png" alt="圖3.6-1">
+                <div class="img-caption"><strong>圖 3.6-1 解釋 (剪力波分離示意圖)：</strong>此圖展示了剪力波分離 (Shear-Wave Splitting) 的幾何機制。當具有單一極化方向的剪力波 (S波) 從等向性介質進入非均向性介質時，波會分裂為兩個正交極化且傳遞速度不同的波：快波 (S1，垂直極化) 與慢波 (S2，水平極化)。這造成了兩者抵達時間的延遲。</div>
+                
+                <img src="圖3.6-7.png" alt="圖3.6-7">
+                <div class="img-caption"><strong>圖 3.6-7 解釋 (SKS 波分離分析)：</strong>此圖以千島群島地震的 SKS 波為例，展示了剪力波分離的資料分析過程。(a) 面板比較了未校正與校正後的波形；(b) 面板顯示未校正的質點運動呈現橢圓形，而校正後則恢復為線性的質點運動；(c) 面板為網格搜索的等高線圖，用以找出最佳的快波方向 (約 45°) 與延遲時間 (約 1.8 秒)，藉此完美重構地函的非均向性特徵。</div>
+            </div>
+        </details>
+    </div>
+
+    <div id="sec3-7" class="section">
+        <h1>3.7 Attenuation and anelasticity (衰減與非彈性)</h1>
+
+        <details>
+            <summary>16. 波傳遞時能量如何衰減？</summary>
+            <div class="details-content">
+                <p>兩種機制：<br>
+                1. <strong>幾何擴散</strong>：隨波前向外擴張，總能量分配到更大表面積，能量密度降低。<br>
+                2. <strong>內在衰減 (非彈性)</strong>：岩石晶界摩擦或流體流動將機械能轉換為熱能耗散，通常以品質因子 (Q 值) 衡量，Q 越低衰減越嚴重。</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>17. 解釋圖 3.7-1</summary>
+            <div class="details-content">
+                <img src="圖3.7-1.png" alt="圖3.7-1">
+                <div class="img-caption"><strong>圖 3.7-1 解釋 (衰減的區域性差異)：</strong>此圖比較了兩個震央距相近但位於不同地質區域的垂直向地震紀錄。上方為位於美國西部 (MNV測站，距離15°)，波形平滑且缺乏高頻能量，反映了該活躍區的高衰減 (低 Q 值) 特性。下方為位於美國中西部穩定大陸板塊 (MM18測站，距離14°)，波形含有豐富的尖銳高頻訊號，顯示該區域衰減極小 (高 Q 值)。</div>
+            </div>
+        </details>
+
+        <details>
+            <summary>18. 解釋圖 3.7-5</summary>
+            <div class="details-content">
+                <img src="圖3.7-5.png" alt="圖3.7-5">
+                <div class="img-caption"><strong>圖 3.7-5 解釋 (速度非均勻性造成的聚焦與散焦)：</strong>此射線追蹤圖展示了平面波穿過一個速度不均勻體 (Lens) 時的幾何效應。右側的振幅分布顯示，射線在某些區域發生收斂，產生極高振幅的焦散區 (Caustics)；在其他區域則發生發散 (Defocusing)，導致振幅微弱。這說明了地球內部的微小波速變化就能導致觀測振幅產生極大波動。</div>
+            </div>
+        </details>
+
+        <details>
+            <summary>19. 解釋圖 3.7-10</summary>
+            <div class="details-content">
+                <img src="圖3.7-10.png" alt="圖3.7-10">
+                <div class="img-caption"><strong>圖 3.7-10 解釋 (地球與月球的散射差異)：</strong>此圖對比了地球 (CCM測站) 與月球 (Apollo 12) 的地震紀錄長度。地球上的地震訊號通常在短時間內衰減殆盡；反觀月震的尾波卻呈現紡錘狀，並持續震盪高達 60 分鐘以上。這是因為月球表面極度乾燥且岩石破碎，缺乏流體吸收能量，導致地震波在裂隙間發生極為強烈的多次散射。</div>
+            </div>
+        </details>
+
+        <details>
+            <summary>20. 解釋圖 3.7-18</summary>
+            <div class="details-content">
+                <img src="圖3.7-18.png" alt="圖3.7-18">
+                <div class="img-caption"><strong>圖 3.7-18 解釋 (美國本土 Lg 波 Q 值分布圖)：</strong>這張地圖標示了美國本土的 Lg 波品質因子 (Q 值) 分布。圓圈代表低 Q 值 (250–450，高衰減)，主要集中在板塊活動頻繁、地熱較高的美國西部；十字代表高 Q 值 (500–750，低衰減)，分布於古老且穩定的美國中東部。這個觀測結果與圖 3.7-1 的波形特徵完美吻合。</div>
+            </div>
+        </details>
+    </div>
+
+    <div id="sec3-8" class="section">
+        <h1>3.8 Composition of the mantle and the core (地函與地核的成分)</h1>
+        <p>透過地震波速、密度分布及高溫高壓實驗的比對，科學家得以推敲出地球內部各層圈的化學組成。</p>
+        
+        <h3>地函 (Mantle)</h3>
+        <p>主要由矽酸鹽岩石組成：</p>
+        <ul>
+            <li><strong>上部地函</strong>：主要成分是橄欖岩，富含橄欖石及少量的輝石與石榴子石。</li>
+            <li><strong>地函過渡帶</strong>：隨壓力增加，橄欖石發生相變，轉為瓦茲利石和林伍德石等尖晶石結構。</li>
+            <li><strong>下部地函</strong>：尖晶石結構進一步崩解，轉為橋錳礦與方鎂石。</li>
+        </ul>
+
+        <h3>地核 (Core)</h3>
+        <p>主要由鐵 (Iron) 和鎳 (Nickel) 合金組成：</p>
+        <ul>
+            <li><strong>外核</strong>：S波無法穿透，證明其為液態。外核密度略低於純鐵鎳，表示溶有硫、氧等輕元素。外核熱對流產生了地球主磁場。</li>
+            <li><strong>內核</strong>：因極端超高壓力轉變為固態。觀測顯示內核具有非均向性，代表鐵晶體可能順著自轉軸產生了整齊排列。</li>
+        </ul>
+    </div>
+
+</div>
+
+<script>
+    function showSection(sectionId, btnElement) {
+        // 隱藏所有 section
+        document.querySelectorAll('.section').forEach(sec => {
+            sec.classList.remove('active');
+        });
+        // 移除所有按鈕的 active
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        // 顯示被選取的 section
+        document.getElementById(sectionId).classList.add('active');
+        // highlight button
+        btnElement.classList.add('active');
+        
+        // 讓 MathJax 重新渲染公式
+        if (window.MathJax) {
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById(sectionId)]);
+        }
+        
+        // 捲動到頂部
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>
